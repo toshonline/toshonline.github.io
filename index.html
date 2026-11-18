@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangphra Chill Trip - แผนเที่ยวบางพระ ชลบุรี 2 วัน 1 คืน</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt & Sarabun for clean Thai typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        },
+                        sun: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        },
+                        coral: {
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#e0f2fe 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        /* Custom scrollbar for smooth feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .tab-active {
+            background: linear-gradient(135deg, #0ea5e9 0%, #14b8a6 100%);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-sky-500 via-teal-400 to-emerald-400 text-white shadow-lg rounded-b-3xl">
+        <div class="max-w-4xl mx-auto px-4 py-6 sm:py-8">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-xs sm:text-sm font-medium mb-2">
+                        <i class="fa-solid fa-location-dot text-amber-300"></i>
+                        <span>โซน มทร.ตะวันออก วิทยาเขตบางพระ - ชลบุรี</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight drop-shadow-sm">
+                        ทริปชิลล์บางพระ 2 วัน 1 คืน 🌿🌊
+                    </h1>
+                    <p class="text-sky-50 text-sm sm:text-base mt-1">
+                        สัมผัสธรรมชาติอ่างเก็บน้ำ คาเฟ่ลับ และทะเลบางแสนใกล้แค่เอื้อม
+                    </p>
+                </div>
+                
+                <!-- Quick Summary Badge -->
+                <div class="bg-white/95 text-slate-800 p-3.5 rounded-2xl shadow-md flex items-center gap-4 self-start sm:self-center">
+                    <div class="text-center border-r border-slate-200 pr-4">
+                        <p class="text-xs text-slate-500">ระยะทางรวม</p>
+                        <p class="text-lg font-bold text-sky-600"><span id="header-total-dist">0</span> <span class="text-xs font-normal">กม.</span></p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500">งบประมาณรวม</p>
+                        <p class="text-lg font-bold text-emerald-600">฿<span id="header-total-budget">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="flex bg-white/25 backdrop-blur-md p-1.5 rounded-2xl mt-6 max-w-md mx-auto sm:mx-0">
+                <button onclick="switchTab('itinerary')" id="btn-tab-itinerary" class="tab-active flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>แผนเที่ยวรายวัน</span>
+                </button>
+                <button onclick="switchTab('budget')" id="btn-tab-budget" class="text-white hover:bg-white/10 flex-1 py-2.5 px-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>งบประมาณ & ระยะทาง</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6">
+        
+        <!-- ==================== TAB 1: ITINERARY ==================== -->
+        <section id="view-itinerary" class="space-y-6">
+            
+            <!-- GPS & Map Control Bar -->
+            <div class="bg-white p-3.5 rounded-2xl shadow-sm border border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-700" id="gps-status-text">กำลังตรวจสอบตำแหน่งปัจจุบัน...</p>
+                        <p class="text-[11px] text-slate-400" id="gps-coords-text">ระบบจะคำนวณระยะทางเริ่มต้นจากพิกัดของคุณ</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 ml-auto sm:ml-0 w-full sm:w-auto justify-end">
+                    <select id="manual-origin-select" onchange="setManualOrigin(this.value)" class="px-2.5 py-2 rounded-xl text-xs font-medium bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-sky-500">
+                        <option value="">📍 เลือกจุดเริ่มต้นเอง...</option>
+                        <option value="13.2145,100.9412|มทร.ตะวันออก บางพระ">มทร.ตะวันออก บางพระ (0 กม.)</option>
+                        <option value="13.3611,100.9847|ตัวเมืองชลบุรี">ตัวเมืองชลบุรี (~22 กม.)</option>
+                        <option value="13.2848,100.9234|บางแสน">บางแสน (~11 กม.)</option>
+                        <option value="13.1737,100.9311|ศรีราชา">ศรีราชา (~6 กม.)</option>
+                        <option value="12.9236,100.8825|พัทยา">พัทยา (~42 กม.)</option>
+                        <option value="13.5991,100.5998|สมุทรปราการ">สมุทรปราการ (~75 กม.)</option>
+                        <option value="13.7563,100.5018|กรุงเทพฯ">กรุงเทพฯ (~95 กม.)</option>
+                    </select>
+                    <button onclick="locateUser(true)" class="px-3 py-2 rounded-xl text-xs font-medium bg-sky-50 text-sky-600 hover:bg-sky-100 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate"></i>
+                        <span>ดึง GPS</span>
+                    </button>
+                    <button onclick="toggleMap()" id="btn-toggle-map" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-500 hover:bg-emerald-600 text-white shadow-sm transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span id="map-toggle-label">เปิด Google Maps</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Collapsible Google Maps Container -->
+            <div id="map-wrapper" class="hidden bg-white p-3 rounded-2xl shadow-sm border border-slate-100 space-y-2.5 transition-all">
+                <div class="flex items-center justify-between px-1">
+                    <span class="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                        <i class="fa-brands fa-google text-rose-500"></i>
+                        <span id="map-current-title">แผนที่: เส้นทางจากตำแหน่งปัจจุบันไปยังบางพระ</span>
+                    </span>
+                    <a id="map-external-link" href="https://www.google.com/maps/search/?api=1&query=อ่างเก็บน้ำบางพระ+ชลบุรี" target="_blank" rel="noopener noreferrer" class="text-xs text-sky-600 hover:underline font-medium">
+                        เปิดในแอป Maps <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+                <div class="w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-slate-100 border border-slate-200">
+                    <iframe id="google-map-iframe" class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src=""></iframe>
+                </div>
+            </div>
+
+            <!-- Day Selector & Add Button -->
+            <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex gap-2">
+                    <button onclick="selectDay(1)" id="day-btn-1" class="px-4 py-2 rounded-xl font-semibold text-sm bg-amber-400 text-slate-900 shadow-sm transition">
+                        ☀️ วันที่ 1 (บางพระ - คาเฟ่)
+                    </button>
+                    <button onclick="selectDay(2)" id="day-btn-2" class="px-4 py-2 rounded-xl font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                        🌊 วันที่ 2 (สวนสัตว์ - บางแสน)
+                    </button>
+                </div>
+                <button onclick="openAddModal()" class="px-4 py-2 rounded-xl font-medium text-sm bg-teal-500 hover:bg-teal-600 text-white shadow-sm transition flex items-center gap-1.5 ml-auto sm:ml-0">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>เพิ่มสถานที่</span>
+                </button>
+            </div>
+
+            <!-- Day Info Banner -->
+            <div id="day-banner" class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 p-4 rounded-2xl flex items-start gap-3">
+                <div class="bg-amber-400 text-white w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg shadow-sm">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <div>
+                    <h2 id="day-title" class="font-bold text-slate-800 text-base sm:text-lg">วันที่ 1: สูดอากาศบริสุทธิ์รอบอ่างเก็บน้ำบางพระ & คาเฟ่ในสวน</h2>
+                    <p id="day-subtitle" class="text-xs sm:text-sm text-slate-600 mt-0.5">จุดเริ่มต้นจากหน้า ม.ราชมงคลตะวันออก วิทยาเขตบางพระ เน้นเดินทางใกล้ๆ ชิลล์ๆ ถ่ายรูปสวย</p>
+                </div>
+            </div>
+
+            <!-- Timeline Container -->
+            <div id="timeline-container" class="relative pl-4 sm:pl-6 space-y-4 before:content-[''] before:absolute before:left-[23px] sm:before:left-[31px] before:top-4 before:bottom-4 before:w-0.5 before:bg-teal-200">
+                <!-- Timeline items will be injected here via JS -->
+            </div>
+
+            <!-- Reset Sample Data Helper -->
+            <div class="text-center pt-4">
+                <button onclick="resetToDefault()" class="text-xs text-slate-400 hover:text-teal-600 underline transition">
+                    <i class="fa-solid fa-rotate-left mr-1"></i>รีเซ็ตกลับเป็นแผนตัวอย่างเริ่มต้น
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: BUDGET & DISTANCE ==================== -->
+        <section id="view-budget" class="hidden space-y-6">
+            
+            <!-- Overview Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Total Money Card -->
+                <div class="bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-5 rounded-3xl shadow-md relative overflow-hidden">
+                    <i class="fa-solid fa-baht-sign absolute -right-4 -bottom-4 text-8xl text-white/10"></i>
+                    <p class="text-emerald-100 text-sm font-medium">งบประมาณรวมตลอดทริป (2 วัน 1 คืน)</p>
+                    <div class="text-3xl sm:text-4xl font-bold mt-1">฿ <span id="summary-total-cost">0</span></div>
+                    <p class="text-xs text-emerald-100 mt-2 bg-black/10 inline-block px-2.5 py-1 rounded-lg">
+                        *คำนวณอัตโนมัติจากรายการเที่ยวและค่าใช้จ่ายด้านล่าง
+                    </p>
+                </div>
+
+                <!-- Total Distance Card -->
+                <div class="bg-gradient-to-br from-sky-500 to-blue-600 text-white p-5 rounded-3xl shadow-md relative overflow-hidden">
+                    <i class="fa-solid fa-route absolute -right-4 -bottom-4 text-8xl text-white/10"></i>
+                    <p class="text-sky-100 text-sm font-medium">ระยะทางเดินทางรวมโดยประมาณ</p>
+                    <div class="text-3xl sm:text-4xl font-bold mt-1"><span id="summary-total-dist">0</span> <span class="text-lg font-normal">กม.</span></div>
+                    <p class="text-xs text-sky-100 mt-2 bg-black/10 inline-block px-2.5 py-1 rounded-lg">
+                        จุดศูนย์กลาง: มทร.ตะวันออก วิทยาเขตบางพระ
+                    </p>
+                </div>
+            </div>
+
+            <!-- Category Breakdown Grid -->
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-teal-500"></i>
+                        <span>สรุปค่าใช้จ่ายแยกตามหมวดหมู่ (บาท)</span>
+                    </h3>
+                    <span class="text-xs text-slate-400">แก้ไขตัวเลขได้ทันที</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="budget-categories-container">
+                    <!-- Category cards generated by JS -->
+                </div>
+
+                <!-- Visual Progress Bar -->
+                <div class="mt-6 pt-5 border-t border-slate-100">
+                    <p class="text-xs font-medium text-slate-500 mb-2">สัดส่วนงบประมาณ</p>
+                    <div id="budget-bar" class="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
+                        <!-- Colored segments injected by JS -->
+                    </div>
+                    <div class="flex flex-wrap gap-4 mt-3 text-xs text-slate-600">
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-purple-500"></span>ที่พัก</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span>อาหาร & คาเฟ่</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sky-500"></span>เดินทาง/น้ำมัน</span>
+                        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-500"></span>ช้อปปิ้ง & ค่าเข้าชม</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distance Breakdown Table -->
+            <div class="bg-white p-5 sm:p-6 rounded-3xl shadow-sm border border-slate-100">
+                <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-map-location-dot text-sky-500"></i>
+                    <span>รายละเอียดระยะทางแต่ละจุด (กม.)</span>
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-200 text-xs text-slate-400 uppercase">
+                                <th class="py-2.5 px-2">วันที่</th>
+                                <th class="py-2.5 px-2">สถานที่</th>
+                                <th class="py-2.5 px-2 text-right">ระยะทางจากจุดก่อนหน้า</th>
+                            </tr>
+                        </thead>
+                        <tbody id="distance-table-body" class="divide-y divide-slate-100 text-sm">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-sky-50/70 font-bold text-slate-800">
+                                <td colspan="2" class="py-3 px-3 rounded-l-xl">รวมระยะทางทั้งหมดตลอด 2 วัน</td>
+                                <td class="py-3 px-3 text-right text-sky-600 rounded-r-xl"><span id="table-total-dist">0</span> กม.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-xs text-slate-400">
+        <p>สร้างด้วย ❤️ เพื่อนักท่องเที่ยวโซนบางพระ - ชลบุรี | ข้อมูลระยะทางและค่าใช้จ่ายเป็นการประมาณการ</p>
+    </footer>
+
+    <!-- Modal for Adding / Editing Activity -->
+    <div id="activity-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl transform transition-all">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-lg font-bold text-slate-800">เพิ่มสถานที่ท่องเที่ยว</h3>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <form id="activity-form" onsubmit="saveActivity(event)" class="space-y-4">
+                <input type="hidden" id="edit-id">
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">วันที่</label>
+                        <select id="input-day" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500">
+                            <option value="1">วันที่ 1</option>
+                            <option value="2">วันที่ 2</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">เวลา (เช่น 09:30)</label>
+                        <input type="text" id="input-time" required placeholder="09:30" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">ชื่อสถานที่</label>
+                    <input type="text" id="input-place" required placeholder="เช่น อ่างเก็บน้ำบางพระ" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500">
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">หมวดงบ</label>
+                        <select id="input-category" class="w-full rounded-xl border border-slate-200 px-2 py-2 text-sm focus:outline-none focus:border-teal-500">
+                            <option value="food">อาหาร/คาเฟ่</option>
+                            <option value="stay">ที่พัก</option>
+                            <option value="travel">เดินทาง</option>
+                            <option value="shop">ช้อป/ตั๋ว</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">งบ (บาท)</label>
+                        <input type="number" id="input-cost" min="0" value="0" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1">ระยะทาง (กม.)</label>
+                        <input type="number" id="input-dist" min="0" step="0.1" value="0" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-slate-600 mb-1">หมายเหตุสั้นๆ</label>
+                    <textarea id="input-note" rows="2" placeholder="กิจกรรมแนะนำ เมนูเด็ด หรือจุดถ่ายรูป" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:border-teal-500"></textarea>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal()" class="flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 font-medium text-sm hover:bg-slate-200 transition">ยกเลิก</button>
+                    <button type="submit" class="flex-1 py-2.5 rounded-xl bg-teal-500 text-white font-medium text-sm hover:bg-teal-600 shadow-md transition">บันทึกข้อมูล</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification (No alert() used) -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-800 text-white px-4 py-3 rounded-2xl shadow-lg text-sm flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg">บันทึกเรียบร้อย!</span>
+    </div>
+
+    <script>
+        // --- 1. INITIAL SAMPLE DATA (รอบ มทร.ตะวันออก วิทยาเขตบางพระ) ---
+        const defaultActivities = [
+            // DAY 1
+            {
+                id: 101,
+                day: 1,
+                time: "08:30",
+                place: "จุดเริ่มต้น: หน้า มทร.ตะวันออก วิทยาเขตบางพระ",
+                note: "รวมตัวเช็คความพร้อม เติมน้ำมันเต็มถังหน้ามหาวิทยาลัย",
+                category: "travel",
+                cost: 300,
+                dist: 0
+            },
+            {
+                id: 102,
+                day: 1,
+                time: "09:00",
+                place: "สันอ่างเก็บน้ำบางพระ & จุดชมวิว",
+                note: "เดินรับลมเย็นๆ ถ่ายรูปคู่กับวิวภูเขาและผืนน้ำกว้างสุดลูกหูลูกตา",
+                category: "shop",
+                cost: 0,
+                dist: 3.5
+            },
+            {
+                id: 103,
+                day: 1,
+                time: "10:30",
+                place: "คาเฟ่ในสวนโซนบางพระ (เช่น ไทร คาเฟ่ / ริมอ่าง)",
+                note: "จิบกาแฟสด เค้กโฮมเมด บรรยากาศร่มรื่นใต้ต้นไม้ใหญ่",
+                category: "food",
+                cost: 280,
+                dist: 2.5
+            },
+            {
+                id: 104,
+                day: 1,
+                time: "12:30",
+                place: "ร้านอาหารป่า & อาหารพื้นบ้านบางพระ",
+                note: "มื้อเที่ยงจัดเต็ม เมนูแนะนำ: แกงป่าปลาเห็ดโคน ไข่เจียวไข่มดแดง",
+                category: "food",
+                cost: 450,
+                dist: 3.0
+            },
+            {
+                id: 105,
+                day: 1,
+                time: "14:30",
+                place: "เช็คอินที่พัก / รีสอร์ทโซนบางพระ-ศรีราชา",
+                note: "พักผ่อนตามอัธยาศัย เล่นน้ำสระหรือนอนตากแอร์คลายร้อน",
+                category: "stay",
+                cost: 1200,
+                dist: 4.5
+            },
+            {
+                id: 106,
+                day: 1,
+                time: "17:00",
+                place: "ชายหาดบางพระ & สะพานปลา",
+                note: "ชมพระอาทิตย์ตกริมทะเล บรรยากาศเงียบสงบ ไม่พลุกพล่าน",
+                category: "shop",
+                cost: 0,
+                dist: 4.0
+            },
+            {
+                id: 107,
+                day: 1,
+                time: "19:00",
+                place: "ตลาดโต้รุ่งบางพระ / ร้านอาหารทะเลริมหาด",
+                note: "ทานมื้อเย็นซีฟู้ดสดๆ และซื้อของกินเล่นกลับที่พัก",
+                category: "food",
+                cost: 550,
+                dist: 2.0
+            },
+
+            // DAY 2
+            {
+                id: 201,
+                day: 2,
+                time: "08:00",
+                place: "ตื่นเช้าทานอาหาร & เช็คเอาท์ที่พัก",
+                note: "ทานอาหารเช้าของที่พัก หรือแวะร้านต้มเลือดหมูเจ้าดังบางพระ",
+                category: "food",
+                cost: 180,
+                dist: 1.5
+            },
+            {
+                id: 202,
+                day: 2,
+                time: "09:30",
+                place: "สวนสัตว์เปิดเขาเขียว (โซนใกล้บางพระ)",
+                note: "ทักทายน้องหมูเด้ง ชมเพนกวินพาเหรด และให้อาหารสัตว์อย่างใกล้ชิด",
+                category: "shop",
+                cost: 400,
+                dist: 12.0
+            },
+            {
+                id: 203,
+                day: 2,
+                time: "12:30",
+                place: "ร้านก๋วยเตี๋ยวเป็ด / อาหารตามสั่งโซนทางลงบางแสน",
+                note: "แวะเติมพลังมื้อกลางวันก่อนมุ่งหน้าสู่ชายหาดบางแสน",
+                category: "food",
+                cost: 250,
+                dist: 14.5
+            },
+            {
+                id: 204,
+                day: 2,
+                time: "14:00",
+                place: "สถาบันวิทยาศาสตร์ทางทะเล (อควาเรียมบางแสน)",
+                note: "ถ่ายรูปกับอุโมงค์ปลาและตู้แมงกะพรุนเรืองแสงสุดฮิต",
+                category: "shop",
+                cost: 160,
+                dist: 8.5
+            },
+            {
+                id: 205,
+                day: 2,
+                time: "16:00",
+                place: "ตลาดปลาบางแสน & ซื้อของฝากหนองมน",
+                note: "เดินเล่นถ่ายรูปสไตล์ญี่ปุ่น ซื้อข้าวหลามหนองมน และเดินทางกลับโดยสวัสดิภาพ",
+                category: "shop",
+                cost: 450,
+                dist: 5.0
+            }
+        ];
+
+        // --- 2. STATE MANAGEMENT ---
+        let activities = JSON.parse(localStorage.getItem('bangphra_trip_v1')) || JSON.parse(JSON.stringify(defaultActivities));
+        let currentDay = 1;
+
+        const categoryMeta = {
+            stay:   { label: 'ที่พัก (1 คืน)', icon: 'fa-bed', color: 'purple', bg: 'bg-purple-100', text: 'text-purple-600', bar: 'bg-purple-500' },
+            food:   { label: 'อาหาร & คาเฟ่', icon: 'fa-utensils', color: 'amber', bg: 'bg-amber-100', text: 'text-amber-600', bar: 'bg-amber-400' },
+            travel: { label: 'เดินทาง / ค่าน้ำมัน', icon: 'fa-car-side', color: 'sky', bg: 'bg-sky-100', text: 'text-sky-600', bar: 'bg-sky-500' },
+            shop:   { label: 'ช้อปปิ้ง & ค่าเข้าชม', icon: 'fa-bag-shopping', color: 'rose', bg: 'bg-rose-100', text: 'text-rose-600', bar: 'bg-rose-500' }
+        };
+
+        // --- 3. CORE RENDERING FUNCTIONS ---
+        function saveToStorage() {
+            localStorage.setItem('bangphra_trip_v1', JSON.stringify(activities));
+            updateAllTotals();
+        }
+
+        function switchTab(tabName) {
+            const viewItinerary = document.getElementById('view-itinerary');
+            const viewBudget = document.getElementById('view-budget');
+            const btnItinerary = document.getElementById('btn-tab-itinerary');
+            const btnBudget = document.getElementById('btn-tab-budget');
+
+            if (tabName === 'itinerary') {
+                viewItinerary.classList.remove('hidden');
+                viewBudget.classList.add('hidden');
+                btnItinerary.classList.add('tab-active');
+                btnItinerary.classList.remove('text-white', 'hover:bg-white/10');
+                btnBudget.classList.remove('tab-active');
+                btnBudget.classList.add('text-white', 'hover:bg-white/10');
+            } else {
+                viewItinerary.classList.add('hidden');
+                viewBudget.classList.remove('hidden');
+                btnBudget.classList.add('tab-active');
+                btnBudget.classList.remove('text-white', 'hover:bg-white/10');
+                btnItinerary.classList.remove('tab-active');
+                btnItinerary.classList.add('text-white', 'hover:bg-white/10');
+                renderBudgetView();
+            }
+        }
+
+        function selectDay(day) {
+            currentDay = day;
+            const btn1 = document.getElementById('day-btn-1');
+            const btn2 = document.getElementById('day-btn-2');
+            const banner = document.getElementById('day-banner');
+            const title = document.getElementById('day-title');
+            const subtitle = document.getElementById('day-subtitle');
+
+            if (day === 1) {
+                btn1.className = "px-4 py-2 rounded-xl font-semibold text-sm bg-amber-400 text-slate-900 shadow-sm transition";
+                btn2.className = "px-4 py-2 rounded-xl font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+                banner.className = "bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 p-4 rounded-2xl flex items-start gap-3";
+                banner.querySelector('div').className = "bg-amber-400 text-white w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg shadow-sm";
+                banner.querySelector('i').className = "fa-solid fa-sun";
+                title.textContent = "วันที่ 1: สูดอากาศบริสุทธิ์รอบอ่างเก็บน้ำบางพระ & คาเฟ่ในสวน";
+                subtitle.textContent = "จุดเริ่มต้นจากหน้า ม.ราชมงคลตะวันออก วิทยาเขตบางพระ เน้นเดินทางใกล้ๆ ชิลล์ๆ ถ่ายรูปสวย";
+            } else {
+                btn2.className = "px-4 py-2 rounded-xl font-semibold text-sm bg-sky-500 text-white shadow-sm transition";
+                btn1.className = "px-4 py-2 rounded-xl font-semibold text-sm bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+                banner.className = "bg-gradient-to-r from-sky-50 to-teal-50 border border-sky-200/60 p-4 rounded-2xl flex items-start gap-3";
+                banner.querySelector('div').className = "bg-sky-500 text-white w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg shadow-sm";
+                banner.querySelector('i').className = "fa-solid fa-water";
+                title.textContent = "วันที่ 2: เที่ยวสวนสัตว์เปิดเขาเขียว & ตะลุยกินบางแสน";
+                subtitle.textContent = "ตื่นเช้าไปดูสัตว์น่ารักๆ ต่อด้วยอควาเรียมและซื้อของฝากกลับบ้าน";
+            }
+            renderTimeline();
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            const dayItems = activities
+                .filter(item => item.day === currentDay)
+                .sort((a, b) => a.time.localeCompare(b.time));
+
+            if (dayItems.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-2xl text-center border border-dashed border-slate-300 ml-4">
+                        <p class="text-slate-400 text-sm">ยังไม่มีแผนท่องเที่ยวในวันนี้ กดปุ่ม "+ เพิ่มสถานที่" ได้เลย!</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = dayItems.map(item => {
+                const meta = categoryMeta[item.category] || categoryMeta.food;
+                return `
+                <div class="relative pl-6 sm:pl-8 group">
+                    <!-- Timeline Dot -->
+                    <div class="absolute left-0 top-5 w-4 h-4 rounded-full bg-white border-4 border-teal-500 shadow-sm z-10"></div>
+                    
+                    <!-- Card -->
+                    <div class="bg-white p-4 sm:p-5 rounded-2xl shadow-sm hover:shadow-md border border-slate-100 transition-all">
+                        <div class="flex flex-wrap items-start justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <span class="bg-teal-50 text-teal-700 font-bold text-xs sm:text-sm px-3 py-1 rounded-lg border border-teal-100">
+                                    <i class="fa-regular fa-clock mr-1"></i>${item.time} น.
+                                </span>
+                                <span class="${meta.bg} ${meta.text} text-xs font-medium px-2.5 py-1 rounded-lg">
+                                    <i class="fa-solid ${meta.icon} mr-1"></i>${meta.label}
+                                </span>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex items-center gap-1">
+                                <button onclick="focusPlaceOnMap('${item.place.replace(/'/g, "\\'")}')" title="ดูบน Google Maps" class="w-8 h-8 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition flex items-center justify-center">
+                                    <i class="fa-solid fa-map-pin text-xs"></i>
+                                </button>
+                                <button onclick="openEditModal(${item.id})" title="แก้ไข" class="w-8 h-8 rounded-lg text-slate-400 hover:text-sky-600 hover:bg-sky-50 transition flex items-center justify-center">
+                                    <i class="fa-solid fa-pen text-xs"></i>
+                                </button>
+                                <button onclick="deleteActivity(${item.id})" title="ลบรายการ" class="w-8 h-8 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition flex items-center justify-center">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <h3 class="font-bold text-slate-800 text-base sm:text-lg mt-2.5">${item.place}</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm mt-1 leading-relaxed">${item.note || '-'}</p>
+
+                        <!-- Footer Tags: Distance & Cost -->
+                        <div class="flex flex-wrap items-center gap-3 mt-3 pt-3 border-t border-slate-50 text-xs">
+                            <span class="inline-flex items-center gap-1 text-sky-600 font-medium bg-sky-50 px-2.5 py-1 rounded-md">
+                                <i class="fa-solid fa-location-arrow"></i> ระยะทาง: ${item.dist} กม.
+                            </span>
+                            <span class="inline-flex items-center gap-1 text-emerald-600 font-medium bg-emerald-50 px-2.5 py-1 rounded-md">
+                                <i class="fa-solid fa-coins"></i> งบประมาณ: ${item.cost > 0 ? '฿' + item.cost.toLocaleString() : 'ฟรี / ตามจริง'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function renderBudgetView() {
+            // Calculate totals per category
+            const totals = { stay: 0, food: 0, travel: 0, shop: 0 };
+            let totalCost = 0;
+            let totalDist = 0;
+
+            activities.forEach(item => {
+                const cost = Number(item.cost) || 0;
+                const dist = Number(item.dist) || 0;
+                if (totals[item.category] !== undefined) {
+                    totals[item.category] += cost;
+                }
+                totalCost += cost;
+                totalDist += dist;
+            });
+
+            // Update Big Cards
+            document.getElementById('summary-total-cost').textContent = totalCost.toLocaleString();
+            document.getElementById('summary-total-dist').textContent = totalDist.toFixed(1);
+            document.getElementById('table-total-dist').textContent = totalDist.toFixed(1);
+
+            // Render Category Cards
+            const catContainer = document.getElementById('budget-categories-container');
+            catContainer.innerHTML = Object.keys(categoryMeta).map(key => {
+                const meta = categoryMeta[key];
+                const amount = totals[key];
+                const percent = totalCost > 0 ? Math.round((amount / totalCost) * 100) : 0;
+                return `
+                <div class="p-4 rounded-2xl border border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-xl ${meta.bg} ${meta.text} flex items-center justify-center text-lg shrink-0">
+                            <i class="fa-solid ${meta.icon}"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-slate-700">${meta.label}</p>
+                            <p class="text-xs text-slate-400">คิดเป็น ${percent}% ของงบทั้งหมด</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-lg font-bold text-slate-800">฿${amount.toLocaleString()}</span>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            // Render Progress Bar
+            const barContainer = document.getElementById('budget-bar');
+            if (totalCost === 0) {
+                barContainer.innerHTML = `<div class="w-full h-full bg-slate-200"></div>`;
+            } else {
+                barContainer.innerHTML = Object.keys(categoryMeta).map(key => {
+                    const meta = categoryMeta[key];
+                    const widthPct = (totals[key] / totalCost) * 100;
+                    return `<div style="width: ${widthPct}%" class="${meta.bar} h-full transition-all duration-500" title="${meta.label}: ฿${totals[key]}"></div>`;
+                }).join('');
+            }
+
+            // Render Distance Table
+            const tableBody = document.getElementById('distance-table-body');
+            const sortedAll = [...activities].sort((a, b) => (a.day - b.day) || a.time.localeCompare(b.time));
+            tableBody.innerHTML = sortedAll.map(item => `
+                <tr class="hover:bg-slate-50/80">
+                    <td class="py-2.5 px-2 whitespace-nowrap">
+                        <span class="px-2 py-0.5 rounded-md text-xs font-medium ${item.day === 1 ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800'}">
+                            วันที่ ${item.day}
+                        </span>
+                    </td>
+                    <td class="py-2.5 px-2 font-medium text-slate-700">${item.place}</td>
+                    <td class="py-2.5 px-2 text-right text-slate-600 font-medium">${Number(item.dist).toFixed(1)} กม.</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateAllTotals() {
+            let totalCost = 0;
+            let totalDist = 0;
+            activities.forEach(item => {
+                totalCost += Number(item.cost) || 0;
+                totalDist += Number(item.dist) || 0;
+            });
+            document.getElementById('header-total-budget').textContent = totalCost.toLocaleString();
+            document.getElementById('header-total-dist').textContent = totalDist.toFixed(1);
+        }
+
+        // --- 4. MODAL & CRUD OPERATIONS ---
+        function openAddModal() {
+            document.getElementById('modal-title').textContent = 'เพิ่มสถานที่ใหม่';
+            document.getElementById('edit-id').value = '';
+            document.getElementById('input-day').value = currentDay;
+            document.getElementById('input-time').value = '10:00';
+            document.getElementById('input-place').value = '';
+            document.getElementById('input-category').value = 'food';
+            document.getElementById('input-cost').value = '0';
+            document.getElementById('input-dist').value = '2.0';
+            document.getElementById('input-note').value = '';
+            
+            const modal = document.getElementById('activity-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function openEditModal(id) {
+            const item = activities.find(a => a.id === id);
+            if (!item) return;
+
+            document.getElementById('modal-title').textContent = 'แก้ไขแผนการเดินทาง';
+            document.getElementById('edit-id').value = item.id;
+            document.getElementById('input-day').value = item.day;
+            document.getElementById('input-time').value = item.time;
+            document.getElementById('input-place').value = item.place;
+            document.getElementById('input-category').value = item.category;
+            document.getElementById('input-cost').value = item.cost;
+            document.getElementById('input-dist').value = item.dist;
+            document.getElementById('input-note').value = item.note;
+
+            const modal = document.getElementById('activity-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('activity-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveActivity(event) {
+            event.preventDefault();
+            const editId = document.getElementById('edit-id').value;
+            const dayVal = Number(document.getElementById('input-day').value);
+            const newObj = {
+                id: editId ? Number(editId) : Date.now(),
+                day: dayVal,
+                time: document.getElementById('input-time').value.trim(),
+                place: document.getElementById('input-place').value.trim(),
+                category: document.getElementById('input-category').value,
+                cost: Number(document.getElementById('input-cost').value) || 0,
+                dist: Number(document.getElementById('input-dist').value) || 0,
+                note: document.getElementById('input-note').value.trim()
+            };
+
+            if (editId) {
+                const idx = activities.findIndex(a => a.id === Number(editId));
+                if (idx !== -1) activities[idx] = newObj;
+                showToast('อัปเดตข้อมูลเรียบร้อยแล้ว');
+            } else {
+                activities.push(newObj);
+                showToast('เพิ่มสถานที่ใหม่ลงในแผนแล้ว');
+            }
+
+            saveToStorage();
+            closeModal();
+            selectDay(dayVal);
+        }
+
+        function deleteActivity(id) {
+            activities = activities.filter(a => a.id !== id);
+            saveToStorage();
+            renderTimeline();
+            showToast('ลบรายการออกจากแผนแล้ว');
+        }
+
+        function resetToDefault() {
+            activities = JSON.parse(JSON.stringify(defaultActivities));
+            saveToStorage();
+            locateUser(false);
+            selectDay(1);
+            showToast('รีเซ็ตเป็นแผนตัวอย่างเริ่มต้นเรียบร้อย');
+        }
+
+        // --- 5. GOOGLE MAPS & GEOLOCATION FEATURES ---
+        let isMapOpen = false;
+        let userCoords = null;
+        // พิกัดเป้าหมายจุดแรก: มทร.ตะวันออก วิทยาเขตบางพระ ชลบุรี
+        const targetStartLat = 13.2145;
+        const targetStartLng = 100.9412;
+
+        function toggleMap() {
+            isMapOpen = !isMapOpen;
+            const wrapper = document.getElementById('map-wrapper');
+            const label = document.getElementById('map-toggle-label');
+            const btn = document.getElementById('btn-toggle-map');
+
+            if (isMapOpen) {
+                wrapper.classList.remove('hidden');
+                label.textContent = 'ปิด Google Maps';
+                btn.classList.replace('bg-emerald-500', 'bg-slate-600');
+                btn.classList.replace('hover:bg-emerald-600', 'hover:bg-slate-700');
+                updateMapIframe('มทร.ตะวันออก วิทยาเขตบางพระ ชลบุรี');
+            } else {
+                wrapper.classList.add('hidden');
+                label.textContent = 'เปิด Google Maps';
+                btn.classList.replace('bg-slate-600', 'bg-emerald-500');
+                btn.classList.replace('hover:bg-slate-700', 'hover:bg-emerald-600');
+            }
+        }
+
+        function updateMapIframe(destinationQuery) {
+            const iframe = document.getElementById('google-map-iframe');
+            const titleEl = document.getElementById('map-current-title');
+            const extLink = document.getElementById('map-external-link');
+            const cleanDest = destinationQuery.replace('จุดเริ่มต้น: ', '');
+
+            if (userCoords) {
+                const originStr = `${userCoords.lat},${userCoords.lng}`;
+                iframe.src = `https://maps.google.com/maps?saddr=${encodeURIComponent(originStr)}&daddr=${encodeURIComponent(cleanDest)}&output=embed`;
+                extLink.href = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originStr)}&destination=${encodeURIComponent(cleanDest)}`;
+                titleEl.textContent = `เส้นทางจากตำแหน่งปัจจุบัน ➔ ${cleanDest}`;
+            } else {
+                iframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(cleanDest)}&output=embed`;
+                extLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cleanDest)}`;
+                titleEl.textContent = `แผนที่: ${cleanDest}`;
+            }
+        }
+
+        function focusPlaceOnMap(placeName) {
+            if (!isMapOpen) {
+                toggleMap();
+            }
+            updateMapIframe(placeName);
+            document.getElementById('map-wrapper').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function calcHaversineKm(lat1, lon1, lat2, lon2) {
+            const R = 6371; // รัศมีโลก (กม.)
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            // คูณ 1.25 เพื่อประมาณระยะทางถนนจริง
+            return Number((R * c * 1.25).toFixed(1));
+        }
+
+        function locateUser(showNotify = false) {
+            const statusEl = document.getElementById('gps-status-text');
+            const coordsEl = document.getElementById('gps-coords-text');
+
+            if (!navigator.geolocation) {
+                statusEl.textContent = 'เบราว์เซอร์ไม่รองรับการดึงตำแหน่ง GPS';
+                return;
+            }
+
+            statusEl.textContent = 'กำลังค้นหาตำแหน่งปัจจุบันของคุณ...';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    userCoords = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    const distFromStart = calcHaversineKm(userCoords.lat, userCoords.lng, targetStartLat, targetStartLng);
+                    statusEl.textContent = `เริ่มเดินทางจากตำแหน่งปัจจุบัน (ห่างบางพระ ~${distFromStart} กม.)`;
+                    coordsEl.textContent = `พิกัด: ${userCoords.lat.toFixed(4)}, ${userCoords.lng.toFixed(4)} • อัปเดตระยะทางจุดเริ่มต้นแล้ว`;
+
+                    // อัปเดตรายการแรกสุด (id: 101) ให้เริ่มจากตำแหน่งปัจจุบัน
+                    const firstIdx = activities.findIndex(a => a.id === 101);
+                    if (firstIdx !== -1) {
+                        activities[firstIdx].place = `ตำแหน่งปัจจุบัน ➔ มทร.ตะวันออก วิทยาเขตบางพระ`;
+                        activities[firstIdx].note = `ออกเดินทางจากพิกัดปัจจุบันของคุณ มุ่งหน้าสู่โซนบางพระ ชลบุรี`;
+                        activities[firstIdx].dist = distFromStart;
+                        saveToStorage();
+                        renderTimeline();
+                        if (!document.getElementById('view-budget').classList.contains('hidden')) {
+                            renderBudgetView();
+                        }
+                    }
+
+                    if (isMapOpen) {
+                        updateMapIframe('มทร.ตะวันออก วิทยาเขตบางพระ ชลบุรี');
+                    }
+                    if (showNotify) {
+                        showToast(`อัปเดตระยะทางจากตำแหน่งปัจจุบัน (${distFromStart} กม.) แล้ว`);
+                    }
+                },
+                () => {
+                    statusEl.textContent = 'เบราว์เซอร์/Google Sites บล็อก GPS อัตโนมัติ';
+                    coordsEl.textContent = 'สามารถเลือก "จุดเริ่มต้นเอง" จากเมนูด้านขวาเพื่อคำนวณระยะทางได้เลย';
+                    if (showNotify) {
+                        showToast('Google Sites ปิดกั้นสิทธิ์ GPS กรุณาเลือกจุดเริ่มต้นจากตัวเลือกด้านข้างครับ');
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 8000 }
+            );
+        }
+
+        function setManualOrigin(val) {
+            if (!val) return;
+            const [coordPart, labelName] = val.split('|');
+            const [lat, lng] = coordPart.split(',').map(Number);
+
+            userCoords = { lat, lng };
+            const distFromStart = calcHaversineKm(lat, lng, targetStartLat, targetStartLng);
+
+            document.getElementById('gps-status-text').textContent = `เริ่มเดินทางจาก: ${labelName} (~${distFromStart} กม.)`;
+            document.getElementById('gps-coords-text').textContent = `คำนวณระยะทางเริ่มต้นไปยัง มทร.ตะวันออก บางพระ เรียบร้อยแล้ว`;
+
+            const firstIdx = activities.findIndex(a => a.id === 101);
+            if (firstIdx !== -1) {
+                activities[firstIdx].place = distFromStart === 0
+                    ? `จุดเริ่มต้น: หน้า มทร.ตะวันออก วิทยาเขตบางพระ`
+                    : `${labelName} ➔ มทร.ตะวันออก วิทยาเขตบางพระ`;
+                activities[firstIdx].note = distFromStart === 0
+                    ? `รวมตัวเช็คความพร้อม เติมน้ำมันเต็มถังหน้ามหาวิทยาลัย`
+                    : `ออกเดินทางจาก${labelName} มุ่งหน้าสู่โซนบางพระ ชลบุรี`;
+                activities[firstIdx].dist = distFromStart;
+                saveToStorage();
+                renderTimeline();
+                if (!document.getElementById('view-budget').classList.contains('hidden')) {
+                    renderBudgetView();
+                }
+            }
+
+            if (isMapOpen) {
+                updateMapIframe('มทร.ตะวันออก วิทยาเขตบางพระ ชลบุรี');
+            }
+            showToast(`ตั้งจุดเริ่มต้นที่ ${labelName} (${distFromStart} กม.) แล้ว`);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // --- 6. INITIALIZE APP ---
+        window.onload = () => {
+            updateAllTotals();
+            selectDay(1);
+            locateUser(false);
+        };
+    </script>
+</body>
+</html>
